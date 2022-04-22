@@ -22,7 +22,7 @@ urlpatterns = [
     path('', test),
     path('login/', test),
     path('signup/', test),
-    path('question/<int:id>', test),
+    path('question/<int:id>/', test),
     path('ask/', test),
     path('popular/', test),
     path('new/', test),
