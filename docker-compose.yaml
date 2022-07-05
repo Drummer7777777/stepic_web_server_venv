@@ -1,0 +1,11 @@
+version: '3.0'
+services:
+        server:
+                image: nginx_castom
+                ports:
+                        - 80:80
+                network_mode: host
+        app:
+                build: ask/
+                #image: app
+                network_mode: host

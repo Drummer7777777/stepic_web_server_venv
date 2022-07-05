@@ -1,0 +1,25 @@
+FROM ubuntu
+
+WORKDIR /app/ask
+
+COPY . /app
+
+RUN apt-get update && \
+apt-get install -y python3 && \
+apt-get install -y python3-pip && \
+##RUN ln -s /usr/bin/python3.5 /usr/bin/python3
+pip3 install django==2.1 && \
+pip3 install gunicorn
+#ln -s /app/etc/gunicorn.conf   /etc/gunicorn.d/test && \
+#$/etc/init.d/gunicorn restart
+RUN apt-get install -y nginx && \
+unlink /etc/nginx/sites-enabled/default && \
+ln -s /app/etc/nginx.conf  /etc/nginx/sites-enabled/test.conf && \
+/etc/init.d/nginx restart
+#RUN ln -s /app/etc/gunicorn.conf   /etc/gunicorn.d/test && \
+#/etc/init.d/gunicorn restart
+#RUN cd ask
+
+#CMD ["gunicorn --bind 0.0.0.0:8080 hello:wsgi_application", 
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "ask.wsgi:application"]
+
